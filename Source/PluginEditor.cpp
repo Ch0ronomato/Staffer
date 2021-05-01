@@ -31,6 +31,7 @@ StafferAudioProcessorEditor::~StafferAudioProcessorEditor()
 void StafferAudioProcessorEditor::paint (juce::Graphics& g)
 {
     g.fillAll(juce::Colours::white);
+    repaint();
 }
 
 void StafferAudioProcessorEditor::resized()
@@ -46,5 +47,4 @@ void StafferAudioProcessorEditor::resized()
 void StafferAudioProcessorEditor::adsrParamsChange(double attack, double decay, double sustain, double release)
 {
     viewer.setParams(attack, decay, sustain, release);
-    repaint();
 }

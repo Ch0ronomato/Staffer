@@ -9,11 +9,12 @@
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
 #include "MinilogueParamsEnum.h"
+#include "ADSRInputs.h"
 
 //==============================================================================
-StafferAudioProcessor::StafferAudioProcessor()
+StafferAudioProcessor::StafferAudioProcessor() :
 #ifndef JucePlugin_PreferredChannelConfigurations
-     : AudioProcessor (BusesProperties()
+     AudioProcessor (BusesProperties()
                      #if ! JucePlugin_IsMidiEffect
                       #if ! JucePlugin_IsSynth
                        .withInput  ("Input",  juce::AudioChannelSet::stereo(), true)
@@ -177,6 +178,11 @@ void StafferAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce
             {
                 mReleaseAmount = parameterAmount;
             }
+            auto l = dynamic_cast<ADSRInputs::ADSRListener*>(getActiveEditor());
+            if (l)
+            {
+                l->adsrParamsChange(mAttackAmount, mDecayAmount, mSustainAmount, mReleaseAmount);
+            }
         }
     }
 }
@@ -189,7 +195,8 @@ bool StafferAudioProcessor::hasEditor() const
 
 juce::AudioProcessorEditor* StafferAudioProcessor::createEditor()
 {
-    return new StafferAudioProcessorEditor (*this);
+    auto editor = new StafferAudioProcessorEditor (*this);
+    return editor;
 }
 
 //==============================================================================
