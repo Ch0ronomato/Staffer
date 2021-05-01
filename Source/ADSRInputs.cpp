@@ -1,6 +1,13 @@
 #include "ADSRInputs.h"
 #include <JuceHeader.h>
 
+ADSRInputs::ADSRListener::~ADSRListener() {}
+
+ADSRInputs::~ADSRInputs()
+{
+    l.release();
+}
+
 ADSRInputs::ADSRInputs(ADSRListener *_l)
 {
     l.reset(_l);

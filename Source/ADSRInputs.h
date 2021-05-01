@@ -10,8 +10,11 @@ public:
     {
     public: 
         virtual void adsrParamsChange(double, double, double, double) = 0;
+        virtual ~ADSRListener() = 0;
+
     };
     ADSRInputs(ADSRListener*);
+    ~ADSRInputs();
     void resized() override;
     void paint(juce::Graphics&) override;
 private:

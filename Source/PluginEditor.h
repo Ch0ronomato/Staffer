@@ -18,7 +18,7 @@
 /**
 */
 class StafferAudioProcessorEditor: public juce::AudioProcessorEditor,
-    private ADSRInputs::ADSRListener
+    public ADSRInputs::ADSRListener
 {
 public:
     StafferAudioProcessorEditor (StafferAudioProcessor&);
